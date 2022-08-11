@@ -7,7 +7,8 @@ export const settings = {
     snake: {
         unit: 20,
         color: "#252422",
-        initialCount: 6
+        initialCount: 6,
+        borderWidth: 3,
     },
     food: {radius: 10, color: "#EB5E28"},
     score: {

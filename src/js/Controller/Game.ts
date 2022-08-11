@@ -24,6 +24,9 @@ export class Game {
     constructor() {
         this.formPlay = document.querySelector('.game__play') as HTMLFormElement;
 
+        this.snakeCanvas = document.querySelector('.game__canvas-container__snake') as HTMLCanvasElement;
+        this.snakeCtx = this.snakeCanvas.getContext('2d') as CanvasRenderingContext2D;
+        this.snake = new Snake(this.snakeCanvas, this.snakeCtx, this.current, this.apples, this.score, this.replay, this);
         this.addEventListeners();
     }
 
@@ -35,6 +38,8 @@ export class Game {
         event.preventDefault();
         event.submitter.addEventListener('submit', () => {
             this.formPlay.classList.add('hide');
+
+            // this.animation.status = {start: true}
         })
     }
 
