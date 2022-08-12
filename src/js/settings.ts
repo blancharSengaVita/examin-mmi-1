@@ -10,7 +10,7 @@ export const settings = {
         initialCount: 6,
         borderWidth: 3,
     },
-    food: {radius: 10, color: "#EB5E28"},
+    food: {radius: 10, color: "#EB5E28", number: 1},
     score: {
         domSelector: ".game__score span"
     },

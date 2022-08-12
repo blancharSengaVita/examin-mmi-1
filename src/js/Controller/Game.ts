@@ -26,6 +26,11 @@ export class Game {
         this.previous = {direction: 0};
         this.formPlay = document.querySelector('.game__play') as HTMLFormElement;
 
+        this.foodCanvas = document.querySelector('.game__canvas-container__food') as HTMLCanvasElement;
+        this.foodCtx = this.foodCanvas.getContext('2d') as CanvasRenderingContext2D;
+        this.apples = [];
+        this.createApples(settings.food.number);
+
         this.snakeCanvas = document.querySelector('.game__canvas-container__snake') as HTMLCanvasElement;
         this.snakeCtx = this.snakeCanvas.getContext('2d') as CanvasRenderingContext2D;
         this.snake = new Snake(this.snakeCanvas, this.snakeCtx, this.current, this.apples, this.score, this.replay, this);
@@ -83,6 +88,12 @@ export class Game {
 
             this.animation.status = {start: true}
 
+            this.apples.forEach((apple: Apple) => {
+                apple.clear();
+            });
+            this.apples.shift();
+            this.createApples(settings.food.number);
+
             this.snake.tail.forEach((body: Body) => {
                 body.clear();
             });
@@ -100,4 +111,11 @@ export class Game {
         document.querySelector(settings.forms.domSelector).classList.remove('hide');
     }
 
+    public createApples(n: number) {
+        for (let i = 0; i < n; i++) {
+            this.apples.push(new Apple(this.foodCanvas, this.foodCtx))
+        }
+    }
+
 }
+
