@@ -73,6 +73,8 @@ export class Snake extends Canvas {
             this.getPreviousPosition();
             this.tail[0].position.y -= settings.snake.unit
         }
+
+        this.isBitingItsTail()
         this.isEating();
         this.isGoingOutside();
 
@@ -110,7 +112,12 @@ export class Snake extends Canvas {
     }
 
     private isBitingItsTail() {
-
+        for (let i = 1; i < this.tail.length; i++) {
+            if (compare(this.tail[i].position, this.tail[0].position)) {
+                this.replay(settings.forms.messages.selfEating);
+                this.animate = false;
+            }
+        }
     }
 
 

@@ -7,7 +7,7 @@ export class Animation {
     status: { start: boolean };
     private last: DOMHighResTimeStamp;
     private now: DOMHighResTimeStamp;
-    snake: Snake;
+    private snake: Snake;
     canPush: boolean;
 
     constructor(status: { start: boolean }, snake: Snake) {
@@ -30,11 +30,12 @@ export class Animation {
     }
 
     animate() {
-        if (this.status.start) {
+        if (this.status.start && this.snake.animate) {
             if (this.now - this.last > 1000 / settings.canvas.fps) {
                 this.canPush = true;
-                // this.clear();
+
                 this.snake.update();
+                // this.clear();
                 // this.iDrawables.forEach((iDrawable: IDrawable) => iDrawable.draw());
                 this.last = this.now;
             }
