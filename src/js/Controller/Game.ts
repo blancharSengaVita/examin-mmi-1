@@ -39,6 +39,40 @@ export class Game {
     addEventListeners() {
         this.reset(new SubmitEvent('reset', {submitter: this.formPlay}));
 
+        addEventListener('keydown', (key: KeyboardEvent) => {
+            if (this.previous.direction !== 1 && this.animation.canPush) {
+                if (key.code === 'ArrowRight') {
+                    this.snake.current = {direction: 0}
+                    this.previous = {direction: 0};
+                    this.animation.canPush = false
+                }
+            }
+
+            if (this.previous.direction !== 0 && this.animation.canPush) {
+                if (key.code === 'ArrowLeft') {
+                    this.snake.current = {direction: 1}
+                    this.previous = {direction: 1};
+                    this.animation.canPush = false
+                }
+            }
+
+            if (this.previous.direction !== 3 && this.animation.canPush) {
+                if (key.code === 'ArrowDown') {
+                    this.snake.current = {direction: 2}
+                    this.previous = {direction: 2};
+                    this.animation.canPush = false
+                }
+            }
+
+            if (this.previous.direction !== 2 && this.animation.canPush) {
+                if (key.code === 'ArrowUp') {
+                    this.snake.current = {direction: 3}
+                    this.previous = {direction: 3};
+                    this.animation.canPush = false
+                }
+            }
+        })
+
     }
 
     private reset(event: SubmitEvent) {

@@ -58,7 +58,17 @@ export class Snake extends Canvas {
         if (this.current.direction === 0) {
             this.getPreviousPosition()
             this.tail[0].position.x += settings.snake.unit
+        } else if (this.current.direction === 1) {
+            this.getPreviousPosition()
+            this.tail[0].position.x -= settings.snake.unit
+        } else if (this.current.direction === 2) {
+            this.getPreviousPosition()
+            this.tail[0].position.y += settings.snake.unit
+        } else if (this.current.direction === 3) {
+            this.getPreviousPosition();
+            this.tail[0].position.y -= settings.snake.unit
         }
+
         this.draw()
     }
 
