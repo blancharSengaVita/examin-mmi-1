@@ -14,8 +14,9 @@ export class Snake extends Canvas {
     private readonly apples: Apple[];
     private readonly score: Score;
     private readonly replay: (message: string) => void;
-    animate: boolean;
     private game: Game;
+    animate: boolean;
+
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, current: { direction: direction }, apples: Apple[], score: Score, replay: (message: string) => void, game:Game) {
         super(canvas, ctx, {
@@ -23,16 +24,19 @@ export class Snake extends Canvas {
             y:0
         });
         this.animate = false;
+
         this.game = game;
         this.score = score;
+
+
+        this.replay = replay;
+
         this.tail= [];
         this.apples = apples;
 
         this.createSnake();
 
         this.initialDraw();
-
-        this.draw()
     }
 
     initialDraw() {
@@ -69,9 +73,10 @@ export class Snake extends Canvas {
             this.getPreviousPosition();
             this.tail[0].position.y -= settings.snake.unit
         }
+        this.isEating();
+        this.isGoingOutside();
 
-        this.isEating()
-        this.draw()
+        this.draw();
     }
 
     private getPreviousPosition() {
@@ -82,7 +87,10 @@ export class Snake extends Canvas {
     }
 
     private isGoingOutside() {
-
+        if (this.tail[0].position.x + settings.snake.unit >= this.canvas.width || this.tail[0].position.x <= 0 || this.tail[0].position.y + settings.snake.unit >= this.canvas.height || this.tail[0].position.y <= 0) {
+            this.replay(settings.forms.messages.goOut);
+            this.animate = false;
+        }
     }
 
     private isEating() {

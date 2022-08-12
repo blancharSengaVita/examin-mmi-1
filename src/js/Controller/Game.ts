@@ -36,11 +36,13 @@ export class Game {
         this.snakeCanvas = document.querySelector('.game__canvas-container__snake') as HTMLCanvasElement;
         this.snakeCtx = this.snakeCanvas.getContext('2d') as CanvasRenderingContext2D;
         this.snake = new Snake(this.snakeCanvas, this.snakeCtx, this.current, this.apples, this.score, this.replay, this);
-        this.addEventListeners();
+
 
         this.status = {start: false}
 
         this.animation = new Animation(this.status, this.snake)
+
+        this.addEventListeners();
     }
 
     addEventListeners() {
@@ -111,6 +113,7 @@ export class Game {
 
     replay(message: string) {
         document.querySelector(settings.forms.domSelector).classList.remove('hide');
+        document.querySelector(settings.forms.messageSelector).textContent = message;
     }
 
     public createApples(n: number) {
@@ -118,6 +121,5 @@ export class Game {
             this.apples.push(new Apple(this.foodCanvas, this.foodCtx))
         }
     }
-
 }
 
