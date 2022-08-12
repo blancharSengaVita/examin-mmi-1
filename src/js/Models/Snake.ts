@@ -24,7 +24,7 @@ export class Snake extends Canvas {
         });
         this.animate = false;
         this.game = game;
-
+        this.score = score;
         this.tail= [];
         this.apples = apples;
 
@@ -70,6 +70,7 @@ export class Snake extends Canvas {
             this.tail[0].position.y -= settings.snake.unit
         }
 
+        this.isEating()
         this.draw()
     }
 
@@ -85,7 +86,19 @@ export class Snake extends Canvas {
     }
 
     private isEating() {
+        this.apples.forEach((apple: Apple) => {
+            if (compare(apple.position, {x: this.tail[0].position.x + 10, y: this.tail[0].position.y + 10})) {
+                this.apples.shift();
+                apple.clear();
+                this.game.createApples(settings.food.number);
+                this.score.increment();
 
+                this.tail.push(new Body(this.canvas, this.ctx, {
+                    x: this.tail[this.tail.length - 1].position.x,
+                    y: this.tail[this.tail.length - 1].position.y
+                }))
+            }
+        })
     }
 
     private isBitingItsTail() {

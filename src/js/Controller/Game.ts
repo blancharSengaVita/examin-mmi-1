@@ -26,6 +26,8 @@ export class Game {
         this.previous = {direction: 0};
         this.formPlay = document.querySelector('.game__play') as HTMLFormElement;
 
+        this.score = new Score(document.querySelector(settings.score.domSelector));
+
         this.foodCanvas = document.querySelector('.game__canvas-container__food') as HTMLCanvasElement;
         this.foodCtx = this.foodCanvas.getContext('2d') as CanvasRenderingContext2D;
         this.apples = [];
