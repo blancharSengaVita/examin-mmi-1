@@ -7,21 +7,22 @@ export class Animation {
     status: { start: boolean };
     private last: DOMHighResTimeStamp;
     private now: DOMHighResTimeStamp;
-    // snake: Snake;
+    snake: Snake;
     canPush: boolean;
 
-    constructor(status: { start: boolean }) {
+    constructor(status: { start: boolean }, snake: Snake) {
         this.iDrawables = [];
         this.last = performance.now();
         this.now = performance.now();
         this.status = status;
-        // this.snake = snake;
-        //
-        // this.canPush = false;
 
-        // this.snake.tail.forEach((body) => {
-        //     this.addIDrawable(body);
-        // })
+        this.snake = snake;
+
+        this.canPush = false;
+
+        this.snake.tail.forEach((body) => {
+            this.addIDrawable(body);
+        })
     }
 
     addIDrawable(iDrawable: IDrawable) {
@@ -31,10 +32,10 @@ export class Animation {
     animate() {
         if (this.status.start) {
             if (this.now - this.last > 1000 / settings.canvas.fps) {
-                // this.canPush = true;
-                this.clear();
-                // this.snake.update();
-                this.iDrawables.forEach((iDrawable: IDrawable) => iDrawable.draw());
+                this.canPush = true;
+                // this.clear();
+                this.snake.update();
+                // this.iDrawables.forEach((iDrawable: IDrawable) => iDrawable.draw());
                 this.last = this.now;
             }
             this.now = performance.now();
